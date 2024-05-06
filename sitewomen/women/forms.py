@@ -23,3 +23,7 @@ class AddPostForm(forms.ModelForm):
             raise ValidationError('Длина первышает 50 симолов')
 
         return title
+
+
+class UploadFileForm(forms.Form):
+    file = forms.ImageField(label='Файл')
