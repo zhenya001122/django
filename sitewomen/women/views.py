@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.template.loader import render_to_string
 from django.template.defaultfilters import slugify
+from django.views import View
+from django.views.generic import TemplateView
 
 from .models import Women, Category, TagPost, UploadFiles
 from .forms import AddPostForm, UploadFileForm
@@ -30,6 +32,16 @@ def index(request):
 #     with open(f"uploads/{f.name}", "wb+") as destination:
 #         for chunk in f.chunks():
 #             destination.write(chunk)
+
+
+class WomenHome(TemplateView):
+    template_name = 'women/index.html'
+    extra_context = {
+        'title': 'Главная страница',
+        'menu': menu,
+        'posts': Women.published.all().select_related('cat'),
+        'cat_selected': 0,
+    }
 
 
 def about(request):
@@ -78,6 +90,29 @@ def addpage(request):
         "form": form
     }
     return render(request, 'women/addpage.html', context=data)
+
+
+class AddPage(View):
+    def get(self, request):
+        form = AddPostForm()
+        data = {
+            'menu': menu,
+            'title': 'Добавление статьи',
+            "form": form
+        }
+        return render(request, 'women/addpage.html', context=data)
+
+    def post(self, request):
+        form = AddPostForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+        data = {
+            'menu': menu,
+            'title': 'Добавление статьи',
+            "form": form
+        }
+        return render(request, 'women/addpage.html', context=data)
 
 
 def contact(request):
