@@ -88,7 +88,7 @@ class WomenCategory(DataMixin, ListView):
         cat = context['posts'][0].cat
         return self.get_mixin_context(context,
                                       title='Категория - ' + cat.name,
-                                      cat_selected= cat.pk
+                                      cat_selected=cat.pk
                                       )
 
 
