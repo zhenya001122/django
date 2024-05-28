@@ -32,6 +32,6 @@ class LoginUser(LoginView):
 #     return render(request, 'users/login.html', {'form': form})
 
 
-def logout_user(request):
-    logout(request)
-    return HttpResponseRedirect(reverse('users:login'))
+# def logout_user(request):
+#     logout(request)
+#     return HttpResponseRedirect(reverse('users:login'))
