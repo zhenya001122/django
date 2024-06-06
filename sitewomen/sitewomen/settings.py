@@ -142,3 +142,6 @@ AUTHENTICATION_BACKENDS = [
     "users.authentication.EmailAuthBackend",
 ]
 
+AUTH_USER_MODEL = "users.User"
+
+DEFAULT_USER_IMAGE = MEDIA_URL + 'users/default.png'
