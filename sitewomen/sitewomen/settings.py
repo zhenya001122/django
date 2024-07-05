@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'women.apps.WomenConfig',
     'users',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
