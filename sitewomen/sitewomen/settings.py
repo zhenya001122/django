@@ -135,7 +135,7 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'
+# LOGOUT_REDIRECT_URL = 'home'# только для версии django 4...
 LOGIN_URL = 'users:login'
 
 AUTHENTICATION_BACKENDS = [
@@ -152,6 +152,6 @@ DEFAULT_USER_IMAGE = MEDIA_URL + 'users/default.png'
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
-        # 'rest_framework.renderers.BrowsableAPIRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
     ]
 }
