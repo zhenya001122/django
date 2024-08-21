@@ -12,6 +12,7 @@ register_converter(converters.FourDigitYearConverter, "year4")
 
 urlpatterns = [
     path('', views.WomenHome.as_view(), name='home'),  # http://127.0.0.1:8000
+    path('api/v1/drf-auth/', include('rest_framework.urls')),
     path('api/v1/women/', views.WomenAPIList.as_view()),
     path('api/v1/women/<int:pk>/', views.WomenAPIUpdate.as_view()),
     path('api/v1/womendelete/<int:pk>/', views.WomenAPIDestroy.as_view()),

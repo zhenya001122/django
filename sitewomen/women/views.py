@@ -10,7 +10,8 @@ from django.views import View
 from django.views.generic import TemplateView, ListView, DetailView, FormView, CreateView, UpdateView, DeleteView
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
+from .permissions import IsAdminOrReadOnly, IsOwnerOrReadOnly
 
 from .models import Women, Category, TagPost, UploadFiles
 from .forms import AddPostForm, UploadFileForm
@@ -41,14 +42,16 @@ class WomenAPIList(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly, )
 
 
-class WomenAPIUpdate(generics.UpdateAPIView):
+class WomenAPIUpdate(generics.RetrieveUpdateAPIView):
     queryset = Women.objects.all()
     serializer_class = WomenSerializer
+    permission_classes = (IsOwnerOrReadOnly, )
 
 
-class WomenAPIDestroy(generics.RetrieveUpdateDestroyAPIView):
+class WomenAPIDestroy(generics.RetrieveDestroyAPIView):
     queryset = Women.objects.all()
     serializer_class = WomenSerializer
+    permission_classes = (IsAdminOrReadOnly, )
 
 
 @login_required
