@@ -8,6 +8,7 @@ from django.template.loader import render_to_string
 from django.template.defaultfilters import slugify
 from django.views import View
 from django.views.generic import TemplateView, ListView, DetailView, FormView, CreateView, UpdateView, DeleteView
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser, IsAuthenticated
@@ -36,10 +37,18 @@ class WomenHome(DataMixin, ListView):
 #     serializer_class = WomenSerializer
 
 
+class WomenAPIListPagination(PageNumberPagination):
+    """класс пагинации для API"""
+    page_size = 1
+    page_size_query_param = 'page_size'
+    max_page_size = 30
+
+
 class WomenAPIList(generics.ListCreateAPIView):
     queryset = Women.objects.all()
     serializer_class = WomenSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, )
+    pagination_class = WomenAPIListPagination
 
 
 class WomenAPIUpdate(generics.RetrieveUpdateAPIView):
